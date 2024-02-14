@@ -53,7 +53,7 @@ update() {
 
 install_essentials() {
     echo "* installing essential software..."
-    sudo apt install make curl git tmux zsh python3
+    sudo apt install make curl git tmux zsh python3 pip
     echo ""
 }
 
