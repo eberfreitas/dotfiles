@@ -12,19 +12,19 @@ manage_symlink() {
             echo "** symlink at $target_path already points to $source_file. doing nothing..."
         else
             if [ -L "$target_path" ]; then
-                echo "** replacing existing symlink at $target_path with $source_file..."
+                echo "** replacing existing symlink at $target_path with $source_file"
             else
-                echo "** backing up existing file at $target_path to $target_path.bak..."
+                echo "** backing up existing file at $target_path to $target_path.bak"
             fi
 
             mv "$target_path" "$target_path.bak"
             ln -s "$source_file" "$target_path"
 
-            echo "** symlink created at $target_path."
+            echo "** symlink created at $target_path"
         fi
     else
         ln -s "$source_file" "$target_path"
-        echo "** symlink created at $target_path."
+        echo "** symlink created at $target_path"
     fi
 }
 
@@ -37,7 +37,6 @@ install_essentials() {
     echo "** installing essential software..."
     sudo apt install curl git tmux
 }
-
 
 setup_zsh() {
     if [ -z "$(command -v zsh)" ]; then
@@ -59,7 +58,7 @@ setup_zsh() {
 setup_omz() {
     if [ ! -d "$HOME/.oh-my-zsh" ]; then
         echo "** omz is not installed. installing..."
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
     else
         echo "** omz is already installed. updating..."
         "$HOME/.oh-my-zsh/tools/upgrade.sh"
