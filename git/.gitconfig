@@ -1,0 +1,18 @@
+[user]
+	name = Éber Freitas Dias
+  email = eber.freitas@gmail.com
+
+[init]
+  defaultBranch = main
+
+[diff]
+	tool = difftastic
+
+[difftool]
+	prompt = false
+
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+
+[pager]
+	difftool = true
