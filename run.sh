@@ -119,6 +119,7 @@ setup_lunarvim() {
     if [ ! -d "$HOME/.config/lvim" ]; then
         echo "* lunarvim is not installed. installing..."
         LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+        sudo mv $HOME/.local/bin/lvim /usr/local/bin/
     else
         echo "* lunarvim is already installed. updating..."
         lvim +LvimUpdate +q
@@ -153,3 +154,4 @@ manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.ym
 
 echo '- don'\''t forget to run "source ~/.zshrc" to refresh zsh config'
 echo '- don'\''t forget to run "tmux source ~/.tmux.conf" to refresh tmux config'
+echo '- don'\''t forget to run "$HOME/.asdf/installs/fzf/[version]/install" to enable auto completion and key bindings'
