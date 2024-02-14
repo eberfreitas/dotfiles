@@ -6,6 +6,8 @@ manage_symlink() {
     local target_path="$1"
     local source_file="$2"
 
+    echo "** symlinking $source_file"
+
     if [ -e "$target_path" ]; then
         if [ -L "$target_path" ] && [ "$(readlink "$target_path")" = "$source_file" ]; then
             echo "** symlink at $target_path already points to $source_file. doing nothing..."
@@ -28,3 +30,4 @@ manage_symlink() {
 }
 
 manage_symlink "$HOME/.gitconfig" "$SCRIPT_DIR/git/.gitconfig"
+manage_symlink "$HOME/.tmux.conf" "$SCRIPT_DIR/tmux/.tmux.conf"
