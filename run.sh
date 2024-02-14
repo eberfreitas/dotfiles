@@ -10,6 +10,13 @@ manage_symlink() {
 
     echo "* symlinking $source_file"
 
+    if [ ! -d "$(dirname "$target_path")" ]; then
+        echo "* target folder does not exist. unable to create symlink."
+        echo ""
+
+        return 1
+    fi
+
     if [ -e "$target_path" ]; then
         if [ -L "$target_path" ] && [ "$(readlink "$target_path")" = "$source_file" ]; then
             echo "* symlink at $target_path already points to $source_file. doing nothing..."
@@ -53,15 +60,15 @@ update() {
 
 install_essentials() {
     echo "* installing essential software..."
-    sudo apt install make curl git tmux zsh python3 pip
+    sudo apt install make curl git tmux zsh python3 pip -y
     echo ""
 }
 
 setup_zsh() {
     if [ "$SHELL" != "$(which zsh)" ]; then
         chsh -s "$(which zsh)"
-        echo "* zsh is now the default shell. enter zsh and re-run this script."
-        exit 0
+        echo "* zsh is now the default shell. rebooting..."
+        sudo reboot
     else
         echo "* zsh is already the default shell."
     fi
