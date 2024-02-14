@@ -3,6 +3,7 @@
 ## EXPORTS
 
 export ZSH="$HOME/.oh-my-zsh"
+export EDITOR="lvim"
 
 ## OMZ STUFF
 
@@ -11,7 +12,9 @@ plugins=(git asdf)
 
 ## ALIASES
 
-alias sss='cd ~/ && clear && tmux'
+alias sss="cd ~/ && clear && tmux"
+alias nvim=lvim
+alias vim=lvim
 
 # asdf installs everything locally, so running sudo directly doesn't work
 # this command uses the local path variable so you can access everything
