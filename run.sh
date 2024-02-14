@@ -67,7 +67,8 @@ install_essentials() {
 setup_zsh() {
     if [ "$SHELL" != "$(which zsh)" ]; then
         chsh -s "$(which zsh)"
-        echo "* zsh is now the default shell. rebooting..."
+        echo "* zsh is now the default shell. rebooting in 5 seconds..."
+        sleep 5
         sudo reboot
     else
         echo "* zsh is already the default shell."
@@ -155,3 +156,4 @@ manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.ym
 echo '- don'\''t forget to run "source ~/.zshrc" to refresh zsh config'
 echo '- don'\''t forget to run "tmux source ~/.tmux.conf" to refresh tmux config'
 echo '- don'\''t forget to run "$HOME/.asdf/installs/fzf/[version]/install" to enable auto completion and key bindings'
+echo '- if any of the steps failed, close the terminal, open it and run this script again'
