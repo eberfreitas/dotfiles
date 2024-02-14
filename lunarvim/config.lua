@@ -8,3 +8,5 @@ lvim.plugins = {
 }
 
 lvim.colorscheme = "catppuccin-frappe"
+
+lvim.format_on_save.enabled = true
