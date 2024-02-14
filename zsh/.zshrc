@@ -18,11 +18,7 @@ alias sss='cd ~/ && clear && tmux'
 # from the root user
 alias mysudo='sudo -E env "PATH=$PATH"'
 
-# git aliases
-alias gs='git status -s'
-alias gl='git log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit'
-
 ## SOURCES
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
