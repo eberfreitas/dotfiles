@@ -30,5 +30,6 @@ manage_symlink() {
 }
 
 manage_symlink "$HOME/.gitconfig" "$SCRIPT_DIR/git/.gitconfig"
+manage_symlink "$HOME/.zshrc" "$SCRIPT_DIR/zsh/.zshrc"
 manage_symlink "$HOME/.tmux.conf" "$SCRIPT_DIR/tmux/.tmux.conf"
 manage_symlink "$HOME/.config/lvim/config.lua" "$SCRIPT_DIR/lunarvim/config.lua"
