@@ -4,6 +4,20 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 ASDF_VERSION="v0.14.0"
 ASDF="$HOME/.asdf/bin/asdf"
 
+run_command() {
+    local linux_command="$1"
+    local macos_command="$2"
+
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        eval "$linux_command"
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        eval "$macos_command"
+    else
+        echo "* unsupported operating system. exiting..."
+        exit 1
+    fi
+}
+
 manage_symlink() {
     local target_path="$1"
     local source_file="$2"
@@ -54,13 +68,13 @@ install_with_asdf() {
 
 update() {
     echo "* updating system packages..."
-    sudo apt update && sudo apt upgrade -y
+    run_command "sudo apt update && sudo apt upgrade -y" "brew update && brew upgrade"
     echo ""
 }
 
 install_essentials() {
     echo "* installing essential software..."
-    sudo apt install make curl git tmux python3 pip -y
+    run_command "sudo apt install make curl git tmux python3 pip -y" "brew install make curl git tmux zsh python3"
     echo ""
 }
 
