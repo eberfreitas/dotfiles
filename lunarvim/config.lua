@@ -25,6 +25,21 @@ lvim.plugins = {
   },
 }
 
+local formatters = require "lvim.lsp.null-ls.formatters"
+
+formatters.setup {
+  {
+    command = "prettierd",
+    filetypes = { "typescript", "typescriptreact", "javascript" },
+  },
+}
+
+local linters = require "lvim.lsp.null-ls.linters"
+
+linters.setup {
+  { command = "eslint_d" },
+}
+
 lvim.colorscheme = "catppuccin-frappe"
 
 lvim.format_on_save.enabled = true
