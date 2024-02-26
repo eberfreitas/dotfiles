@@ -12,9 +12,7 @@ plugins=(git asdf)
 
 ## ALIASES
 
-alias sss="cd ~/ && clear && tmux"
-alias nvim=lvim
-alias vim=lvim
+alias sss="cd ~/ && clear && zellij"
 
 # asdf installs everything locally, so running sudo directly doesn't work
 # this command uses the local path variable so you can access everything

@@ -136,6 +136,7 @@ setup_omz
 setup_asdf
 setup_tpm
 
+install_with_asdf "zellij"
 install_with_asdf "neovim"
 install_with_asdf "ripgrep"
 install_with_asdf "fzf"
@@ -152,6 +153,7 @@ manage_symlink "$HOME/.zshrc" "$SCRIPT_DIR/zsh/.zshrc"
 manage_symlink "$HOME/.tmux.conf" "$SCRIPT_DIR/tmux/.tmux.conf"
 manage_symlink "$HOME/.config/lvim/config.lua" "$SCRIPT_DIR/lunarvim/config.lua"
 manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.yml"
+manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
 
 echo '- don'\''t forget to open a new zsh and tmux session to see changes'
 echo '- don'\''t forget to run "$HOME/.asdf/installs/fzf/[version]/install" to enable auto completion and key bindings'
