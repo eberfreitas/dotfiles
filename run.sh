@@ -4,56 +4,6 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 ASDF_VERSION="v0.14.0"
 ASDF="$HOME/.asdf/bin/asdf"
 
-install_with_pkg() {
-    local command="$1"
-    
-    if [[ -f /etc/os-release ]]; then
-        . /etc/os-release
-        case "$ID" in
-            ubuntu)
-                sudo apt install -y $command
-                ;;
-            solus)
-                sudo eopkg install -y $command
-                ;;
-            *)
-                echo "* unsupported Linux distribution. exiting..."
-                exit 1
-                ;;
-        esac
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        brew install $command
-    else
-        echo "* unsupported operating system. exiting..."
-        exit 1
-    fi
-}
-
-update() {
-    echo "* updating system packages..."
-    if [[ -f /etc/os-release ]]; then
-        . /etc/os-release
-        case "$ID" in
-            ubuntu)
-                sudo apt update && sudo apt upgrade -y
-                ;;
-            solus)
-                sudo eopkg upgrade -y
-                ;;
-            *)
-                echo "* unsupported Linux distribution. exiting..."
-                exit 1
-                ;;
-        esac
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        brew update && brew upgrade
-    else
-        echo "* unsupported operating system. exiting..."
-        exit 1
-    fi
-    echo ""
-}
-
 manage_symlink() {
     local target_path="$1"
     local source_file="$2"
@@ -99,12 +49,6 @@ install_with_asdf() {
     eval "$ASDF install $plugin latest"
     eval "$ASDF global $plugin latest"
 
-    echo ""
-}
-
-install_essentials() {
-    echo "* installing essential software..."
-    install_with_pkg "make curl git tmux python3 python3-pip"
     echo ""
 }
 
@@ -160,8 +104,6 @@ setup_lunarvim() {
     echo ""
 }
 
-update
-install_essentials
 setup_omz
 setup_asdf
 setup_tpm
