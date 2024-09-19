@@ -4,18 +4,54 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 ASDF_VERSION="v0.14.0"
 ASDF="$HOME/.asdf/bin/asdf"
 
-run_command() {
-    local linux_command="$1"
-    local macos_command="$2"
-
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        eval "$linux_command"
+install_with_pkg() {
+    local command="$1"
+    
+    if [[ -f /etc/os-release ]]; then
+        . /etc/os-release
+        case "$ID" in
+            ubuntu)
+                sudo apt install -y $command
+                ;;
+            solus)
+                sudo eopkg install -y $command
+                ;;
+            *)
+                echo "* unsupported Linux distribution. exiting..."
+                exit 1
+                ;;
+        esac
     elif [[ "$OSTYPE" == "darwin"* ]]; then
-        eval "$macos_command"
+        brew install $command
     else
         echo "* unsupported operating system. exiting..."
         exit 1
     fi
+}
+
+update() {
+    echo "* updating system packages..."
+    if [[ -f /etc/os-release ]]; then
+        . /etc/os-release
+        case "$ID" in
+            ubuntu)
+                sudo apt update && sudo apt upgrade -y
+                ;;
+            solus)
+                sudo eopkg upgrade -y
+                ;;
+            *)
+                echo "* unsupported Linux distribution. exiting..."
+                exit 1
+                ;;
+        esac
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        brew update && brew upgrade
+    else
+        echo "* unsupported operating system. exiting..."
+        exit 1
+    fi
+    echo ""
 }
 
 manage_symlink() {
@@ -25,7 +61,7 @@ manage_symlink() {
     echo "* symlinking $source_file"
 
     if [ ! -d "$(dirname "$target_path")" ]; then
-        echo "* target folder does not exist. unable to create symlink."
+        echo "* $target_path target folder does not exist. unable to create symlink."
         echo ""
 
         return 1
@@ -66,15 +102,9 @@ install_with_asdf() {
     echo ""
 }
 
-update() {
-    echo "* updating system packages..."
-    run_command "sudo apt update && sudo apt upgrade -y" "brew update && brew upgrade"
-    echo ""
-}
-
 install_essentials() {
     echo "* installing essential software..."
-    run_command "sudo apt install make curl git tmux python3 pip -y" "brew install make curl git tmux zsh python3"
+    install_with_pkg "make curl git tmux python3 python3-pip"
     echo ""
 }
 
@@ -120,7 +150,7 @@ setup_tpm() {
 setup_lunarvim() {
     if [ ! -d "$HOME/.config/lvim" ]; then
         echo "* lunarvim is not installed. installing..."
-        LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+        LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh)
         sudo mv $HOME/.local/bin/lvim /usr/local/bin/
     else
         echo "* lunarvim is already installed. updating..."
