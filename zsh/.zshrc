@@ -19,7 +19,11 @@ alias sss="cd ~/ && clear && zellij"
 # from the root user
 alias mysudo='sudo -E env "PATH=$PATH"'
 
+## NIX
+if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
+
 ## SOURCES
 
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
