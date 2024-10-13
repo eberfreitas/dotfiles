@@ -95,6 +95,6 @@ manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
 manage_symlink "$HOME/.gitconfig" "$SCRIPT_DIR/git/.gitconfig"
 manage_symlink "$HOME/.zshrc" "$SCRIPT_DIR/zsh/.zshrc"
 
-echo '- don'\''t forget to open a new zsh and tmux session to see changes'
+echo '- don'\''t forget to open a terminal session to see changes'
 echo '- don'\''t forget to run "$HOME/.asdf/installs/fzf/[version]/install" to enable auto completion and key bindings'
 echo '- if any of the steps failed, close the terminal, open it and run this script again'
