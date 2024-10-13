@@ -3,7 +3,8 @@
 ## EXPORTS
 
 export ZSH="$HOME/.oh-my-zsh"
-export EDITOR="lvim"
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
 
 ## OMZ STUFF
 
