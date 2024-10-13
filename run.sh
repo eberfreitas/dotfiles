@@ -4,20 +4,6 @@ SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
 ASDF_VERSION="v0.14.0"
 ASDF="$HOME/.asdf/bin/asdf"
 
-run_command() {
-    local linux_command="$1"
-    local macos_command="$2"
-
-    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-        eval "$linux_command"
-    elif [[ "$OSTYPE" == "darwin"* ]]; then
-        eval "$macos_command"
-    else
-        echo "* unsupported operating system. exiting..."
-        exit 1
-    fi
-}
-
 manage_symlink() {
     local target_path="$1"
     local source_file="$2"
@@ -25,7 +11,7 @@ manage_symlink() {
     echo "* symlinking $source_file"
 
     if [ ! -d "$(dirname "$target_path")" ]; then
-        echo "* target folder does not exist. unable to create symlink."
+        echo "* $target_path target folder does not exist. unable to create symlink."
         echo ""
 
         return 1
@@ -63,18 +49,6 @@ install_with_asdf() {
     eval "$ASDF install $plugin latest"
     eval "$ASDF global $plugin latest"
 
-    echo ""
-}
-
-update() {
-    echo "* updating system packages..."
-    run_command "sudo apt update && sudo apt upgrade -y" "brew update && brew upgrade"
-    echo ""
-}
-
-install_essentials() {
-    echo "* installing essential software..."
-    run_command "sudo apt install make curl git tmux python3 pip -y" "brew install make curl git tmux zsh python3"
     echo ""
 }
 
@@ -120,7 +94,7 @@ setup_tpm() {
 setup_lunarvim() {
     if [ ! -d "$HOME/.config/lvim" ]; then
         echo "* lunarvim is not installed. installing..."
-        LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.3/neovim-0.9/utils/installer/install.sh)
+        LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh)
         sudo mv $HOME/.local/bin/lvim /usr/local/bin/
     else
         echo "* lunarvim is already installed. updating..."
@@ -130,8 +104,6 @@ setup_lunarvim() {
     echo ""
 }
 
-update
-install_essentials
 setup_omz
 setup_asdf
 setup_tpm
