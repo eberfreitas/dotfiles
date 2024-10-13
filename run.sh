@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-ASDF_VERSION="v0.14.0"
+ASDF_VERSION="v0.14.1"
 ASDF="$HOME/.asdf/bin/asdf"
 
 manage_symlink() {
@@ -78,52 +78,21 @@ setup_asdf() {
     echo ""
 }
 
-setup_tpm() {
-    tmux_plugins_dir="$HOME/.tmux/plugins/tpm"
-
-    if [ ! -d "$tmux_plugins_dir" ]; then
-        echo "* tpm is not installed. installing..."
-        git clone https://github.com/tmux-plugins/tpm "$tmux_plugins_dir"
-    else
-        echo "* tpm is already installed."
-    fi
-
-    echo ""
-}
-
-setup_lunarvim() {
-    if [ ! -d "$HOME/.config/lvim" ]; then
-        echo "* lunarvim is not installed. installing..."
-        LV_BRANCH='release-1.4/neovim-0.9' bash <(curl -s https://raw.githubusercontent.com/LunarVim/LunarVim/release-1.4/neovim-0.9/utils/installer/install.sh)
-        sudo mv $HOME/.local/bin/lvim /usr/local/bin/
-    else
-        echo "* lunarvim is already installed. updating..."
-        lvim +LvimUpdate +q
-    fi
-
-    echo ""
-}
-
 setup_omz
 setup_asdf
-setup_tpm
 
-install_with_asdf "zellij"
-install_with_asdf "neovim"
-install_with_asdf "ripgrep"
-install_with_asdf "fzf"
-install_with_asdf "difftastic"
 install_with_asdf "bat"
+install_with_asdf "difftastic"
+install_with_asdf "fzf"
 install_with_asdf "lazygit"
+install_with_asdf "neovim"
 install_with_asdf "nodejs"
+install_with_asdf "ripgrep"
 install_with_asdf "rust"
-
-setup_lunarvim
+install_with_asdf "zellij"
 
 manage_symlink "$HOME/.gitconfig" "$SCRIPT_DIR/git/.gitconfig"
 manage_symlink "$HOME/.zshrc" "$SCRIPT_DIR/zsh/.zshrc"
-manage_symlink "$HOME/.tmux.conf" "$SCRIPT_DIR/tmux/.tmux.conf"
-manage_symlink "$HOME/.config/lvim/config.lua" "$SCRIPT_DIR/lunarvim/config.lua"
 manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.yml"
 manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
 
