@@ -11,10 +11,8 @@ manage_symlink() {
     echo "* symlinking $source_file"
 
     if [ ! -d "$(dirname "$target_path")" ]; then
-        echo "* $target_path target folder does not exist. unable to create symlink."
-        echo ""
-
-        return 1
+        echo "* $target_path target folder does not exist. Creating it..."
+        mkdir -p "$(dirname "$target_path")"
     fi
 
     if [ -e "$target_path" ]; then
@@ -91,10 +89,11 @@ install_with_asdf "ripgrep"
 install_with_asdf "rust"
 install_with_asdf "zellij"
 
+manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.yml"
+manage_symlink "$HOME/.config/nvim/lua" "$SCRIPT_DIR/nvim"
+manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
 manage_symlink "$HOME/.gitconfig" "$SCRIPT_DIR/git/.gitconfig"
 manage_symlink "$HOME/.zshrc" "$SCRIPT_DIR/zsh/.zshrc"
-manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.yml"
-manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
 
 echo '- don'\''t forget to open a new zsh and tmux session to see changes'
 echo '- don'\''t forget to run "$HOME/.asdf/installs/fzf/[version]/install" to enable auto completion and key bindings'
