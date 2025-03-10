@@ -1,8 +1,6 @@
 #!/bin/zsh
 
 SCRIPT_DIR="$(dirname "$(readlink -f "$0")")"
-ASDF_VERSION="v0.14.1"
-ASDF="$HOME/.asdf/bin/asdf"
 
 manage_symlink() {
     local target_path="$1"
@@ -43,41 +41,14 @@ install_with_asdf() {
 
     echo "* installing $plugin with asdf..."
 
-    eval "$ASDF plugin add $plugin"
-    eval "$ASDF install $plugin latest"
-    eval "$ASDF global $plugin latest"
+    eval "asdf plugin add $plugin"
+    eval "asdf install $plugin latest"
+    eval "asdf set $plugin latest"
 
     echo ""
 }
 
-setup_omz() {
-    if [ ! -d "$HOME/.oh-my-zsh" ]; then
-        echo "* omz is not installed. installing..."
-        sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    else
-        echo "* omz is already installed. updating..."
-        "$HOME/.oh-my-zsh/tools/upgrade.sh"
-    fi
-
-    echo ""
-}
-
-setup_asdf() {
-    if [ ! -d "$HOME/.asdf" ]; then
-        echo "* asdf is not installed. installing..."
-        git clone https://github.com/asdf-vm/asdf.git "$HOME/.asdf" --branch "$ASDF_VERSION"
-    else
-        echo "* asdf is already installed. updating..."
-        eval "$ASDF update"
-        echo "* updating asdf plugins..."
-        eval "$ASDF plugin update --all"
-    fi
-
-    echo ""
-}
-
-setup_omz
-setup_asdf
+cd $HOME
 
 install_with_asdf "bat"
 install_with_asdf "difftastic"
@@ -90,7 +61,7 @@ install_with_asdf "rust"
 install_with_asdf "zellij"
 
 manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.yml"
-manage_symlink "$HOME/.config/nvim/lua" "$SCRIPT_DIR/nvim"
+manage_symlink "$HOME/.config/nvim" "$SCRIPT_DIR/nvim"
 manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
 manage_symlink "$HOME/.gitconfig" "$SCRIPT_DIR/git/.gitconfig"
 manage_symlink "$HOME/.zshrc" "$SCRIPT_DIR/zsh/.zshrc"
