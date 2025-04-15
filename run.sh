@@ -60,6 +60,7 @@ install_with_asdf "ripgrep"
 install_with_asdf "rust"
 install_with_asdf "zellij"
 
+manage_symlink "$HOME/.config/alacritty" "$SCRIPT_DIR/alacritty"
 manage_symlink "$HOME/.config/lazygit/config.yml" "$SCRIPT_DIR/lazygit/config.yml"
 manage_symlink "$HOME/.config/nvim" "$SCRIPT_DIR/nvim"
 manage_symlink "$HOME/.config/zellij/config.kdl" "$SCRIPT_DIR/zellij/config.kdl"
