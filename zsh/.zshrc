@@ -11,20 +11,25 @@ export VISUAL="$EDITOR"
 ZSH_THEME="avit"
 plugins=(git asdf)
 
+source $ZSH/oh-my-zsh.sh
+
 ## ALIASES
 
-alias sss="cd ~/ && clear && zellij"
+alias start="cd ~/ && clear && zellij"
 
 # asdf installs everything locally, so running sudo directly doesn't work
 # this command uses the local path variable so you can access everything
 # from the root user
 alias mysudo='sudo -E env "PATH=$PATH"'
 
-## NIX
-if [ -e ~/.nix-profile/etc/profile.d/nix.sh ]; then . ~/.nix-profile/etc/profile.d/nix.sh; fi
+## STUFF
 
-## SOURCES
+if command -v starship &> /dev/null; then
+    eval "$(starship init zsh)"
+fi
 
-source $ZSH/oh-my-zsh.sh
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "$HOME/.atuin/bin/env" ] && . "$HOME/.atuin/bin/env"
 
+if command -v atuin >/dev/null 2>&1; then
+    eval "$(atuin init zsh)"
+fi
