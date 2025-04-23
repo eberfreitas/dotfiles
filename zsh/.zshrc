@@ -24,6 +24,10 @@ alias mysudo='sudo -E env "PATH=$PATH"'
 
 ## STUFF
 
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook zsh)"
+fi
+
 if command -v starship &> /dev/null; then
     eval "$(starship init zsh)"
 fi
