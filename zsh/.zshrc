@@ -37,3 +37,7 @@ fi
 if command -v atuin >/dev/null 2>&1; then
     eval "$(atuin init zsh)"
 fi
+
+if [[ -d "$HOME/.lmstudio/bin" ]]; then
+  export PATH="$PATH:$HOME/.lmstudio/bin"
+fi
