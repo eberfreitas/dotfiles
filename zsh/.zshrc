@@ -6,6 +6,14 @@ export ZSH="$HOME/.oh-my-zsh"
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
 
+## Local binaries path
+
+export PATH="$HOME/.local/bin:$PATH"
+
+## ASDF path config
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
 ## OMZ STUFF
 
 ZSH_THEME="avit"
