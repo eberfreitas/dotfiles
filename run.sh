@@ -53,6 +53,7 @@ cd $HOME
 install_with_asdf "bat"
 install_with_asdf "difftastic"
 install_with_asdf "fzf"
+install_with_asdf "gleam"
 install_with_asdf "lazygit"
 install_with_asdf "neovim"
 install_with_asdf "nodejs"
