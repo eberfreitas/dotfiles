@@ -53,3 +53,7 @@ fi
 if [ -r "$HOME/.opam/opam-init/init.zsh" ]; then
     source "$HOME/.opam/opam-init/init.zsh" > /dev/null 2> /dev/null
 fi
+
+if [ -d "$HOME/.opencode/bin" ]; then
+    export PATH="$HOME/.opencode/bin:$PATH"
+fi
